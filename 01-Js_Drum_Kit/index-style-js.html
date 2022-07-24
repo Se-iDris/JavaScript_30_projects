@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drum Kit</title>
+  </head>
+  <body>
+    
+    
+    <div class="container">
+      <!------------------Keys container------------->
+    
+    	<h1>Type on your Keyboard!</h1>
+      <div class="keys">
+        <div >
+          <button data-key="65" class="key"onclick="clap.play();">A <br />clap</button>
+        </div>
+        <div >
+          <button data-key="83" class="key" onclick="hihat.play();">
+            S<br />
+            hihat
+          </button>
+        </div>
+        <div>
+          <button data-key="68" class="key" onclick="kick.play()">D <br />kick</button>
+        </div>
+        <div>
+          <button data-key="70" class="key" onclick="openhat.play();">F <br />openhat</button>
+        </div>
+        <div>
+          <button data-key="71" class="key" onclick="boom.play();">G<br />Boom</button>
+        </div>
+        <div>
+          <button data-key="72" class="key" onclick="ride.play()">H <br />Ride</button>
+        </div>
+        <div>
+          <button class="key" data-key="74" onclick="snare.play()">J <br />SNARE</button>
+        </div>
+        <div>
+          <button class="key" data-key="75" onclick="tom.play()">K<br />TOM</button>
+        </div>
+        <div >
+          <button class="key" data-key="76" onclick="tink.play()">L <br />TINK</button>
+        </div>
+      </div>
+    </div>
+
+    <!--------------------Sounds src---------->
+
+    <audio data-key="65" src="sounds/clap.wav"></audio>
+    <audio data-key="83" src="sounds/hihat.wav"></audio>
+    <audio data-key="68" src="sounds/kick.wav"></audio>
+    <audio data-key="70" src="sounds/openhat.wav"></audio>
+    <audio data-key="71" src="sounds/boom.wav"></audio>
+    <audio data-key="72" src="sounds/ride.wav"></audio>
+    <audio data-key="74" src="sounds/snare.wav"></audio>
+    <audio data-key="75" src="sounds/tom.wav"></audio>
+    <audio data-key="76" src="sounds/tink.wav"></audio>
+
+    <!----------------Styles for my html--------------->
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: url(piano.jpg) bottom center;
+        background-size: cover;
+      }
+
+
+      h1 {
+      	color: gold;
+      	margin-left: 20px;
+      	margin-top: 70px ;
+      	margin-bottom: 2px;
+      	text-align: left;
+      	justify-content: center;
+      	height: 20vh;
+      }
+      
+
+      .keys {
+        display: flex;
+        margin-top: 5px;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 100vh;
+
+      }
+
+      .key {
+
+      }
+
+      button {
+        background: none;
+        cursor: pointer;
+        font-size: 1.5em;
+        font-family: "monospace;";
+        color: white;
+        transition: all 0.09s ease;
+        border-radius: 10px;
+      }
+
+    /*  button:hover {
+        border: 2px solid gold;
+        font-weight: bold;
+      }
+*/
+
+      .playing {
+      	transform: scale(1.5);
+      	border-color: gold;
+      	border-radius: 10px;
+      	box-shadow: 0 0 1rem #ffc600;
+      }
+
+    </style>
+<!---------------------Js implementation-------------->
+    <script>
+
+/*---------------------Audio src----------------------*/
+    	const clap = new Audio();
+    	clap.src="sounds/clap.wav";
+
+    	const hihat = new Audio();
+    	hihat.src="sounds/hihat.wav";
+
+    	const kick = new Audio();
+    	kick.src="sounds/kick.wav";
+    	
+    	const openhat = new Audio();
+    	openhat.src="sounds/openhat.wav";
+    	
+    	const boom = new Audio();
+    	boom.src="sounds/boom.wav";
+
+    	const ride = new Audio();
+    	ride.src="sounds/ride.wav";
+
+    	const snare = new Audio();
+    	snare.src="sounds/snare.wav";
+
+    	const tom= new Audio();
+    	tom.src="sounds/tom.wav";
+
+    	const tink = new Audio();
+    	tink.src="sounds/tink.wav";
+    	
+
+/*----------------------Event Listener--------------*/
+      function playSound(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+       const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
+       if (!audio) return;
+       key.classList.add("playing");
+       audio.currentTime = 0;
+       audio.play();
+        };
+
+        
+/*-------------------------------Transitionend-----------------*/
+      function removeTransition(e) {
+    	if (e.propertyName !== "transform") return;
+    	this.classList.remove('playing');
+	}
+
+      const keys = document.querySelectorAll("button");
+		keys.forEach(key => key.addEventListener("transitionend", removeTransition));	
+
+      window.addEventListener("keydown", playSound);
+      window.addEventListener("click", playSound);
+  
+    </script>
+  </body>
+</html>
