@@ -52,7 +52,7 @@
       .panel {
         display: flex;
         flex: 1;
-        transition: font-family 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
+        transition: font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
           flex 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11), background 0.2s;
         flex-direction: column;
         justify-content: center;
@@ -114,6 +114,11 @@
         color: aqua;
         text-transform: uppercase;
         font-family: Curlz MT;
+      }
+      @media only screen and (max-width: 600px) {
+        .panel p {
+          font-size: 1em;
+        }
       }
     </style>
     <script>
