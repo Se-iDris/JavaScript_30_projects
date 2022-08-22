@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form class="container">
+      <input type="text" class="search" placeholder="City or State" />
+      <ul class="suggestions">
+        <li>Filter For A City</li>
+        <li>Or A State</li>
+      </ul>
+    </form>
+    <style>
+      body {
+        background: #ffc600;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .container {
+        max-width: 400px;
+        margin: 50px auto;
+      }
+
+      .search {
+        font-size: 40px;
+        text-align: center;
+        border: 10px solid #f7f7f7;
+        border-radius: 5px;
+        top: 10px;
+        margin-top: 3rem;
+        padding: 20px;
+        left: -10%;
+        position: relative;
+        outline: 0;
+        z-index: 2;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.12),
+          inset 0 0 2px rgba(0, 0, 0, 0.19);
+      }
+
+      .suggestions {
+        margin: 0;
+        padding: 0px;
+        list-style: none;
+        position: relative;
+      }
+      .suggestions li {
+        background: white;
+        font-size: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
+        padding: 20px;
+        border-bottom: 2px solid #d8d8d8;
+        display: flex;
+        justify-content: space-between;
+        text-transform: capitalize;
+      }
+
+      .suggestions li:nth-child(even) {
+        transform: perspective(100px) rotateX(3deg) translateY(2px) scale(1.001);
+        background: linear-gradient(to bottom, #ffffff 0%, #efefef 100%);
+      }
+
+      .suggestions li:nth-child(odd) {
+        transform: perspective(100px) rotateX(-3deg) translateY(3px);
+        background: linear-gradient(to top, #ffffff 0%, #efefef 100%);
+      }
+    </style>
+  </body>
+</html>
