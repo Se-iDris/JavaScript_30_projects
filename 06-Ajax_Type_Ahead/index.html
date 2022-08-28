@@ -52,6 +52,7 @@
       .suggestions li {
         background: white;
         font-size: 20px;
+        font-family: Helvetica, sans-serif;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
         padding: 20px;
         border-bottom: 2px solid #d8d8d8;
@@ -69,6 +70,64 @@
         transform: perspective(100px) rotateX(-3deg) translateY(3px);
         background: linear-gradient(to top, #ffffff 0%, #efefef 100%);
       }
+
+      span.population {
+        font-size: 15px;
+      }
+
+      .hl {
+        background: #ffc600;
+      }
     </style>
+    <script>
+      const endpoint =
+        "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
+
+      const cities = [];
+
+      fetch(endpoint)
+        .then((blob) => blob.json())
+        .then((data) => cities.push(...data));
+
+      function findMatches(wordsToFind, cities) {
+        return cities.filter((places) => {
+          const regex = new RegExp(wordsToFind, "gi");
+          return places.city.match(regex) || places.state.match(regex);
+        });
+      }
+      const inputSearch = document.querySelector(".search");
+      const suggestions = document.querySelector(".suggestions");
+
+      function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
+      function displayMatches() {
+        const cityArray = findMatches(this.value, cities);
+        const html = cityArray
+          .map((places) => {
+            const regex = new RegExp(this.value, "gi");
+            const cityName = places.city.replace(
+              regex,
+              `<span class="hl">${this.value}</span>`
+            );
+            const stateName = places.state.replace(
+              regex,
+              `<span class="hl">${this.value}</span>`
+            );
+            return `<li>
+              <span class="name">${cityName}, ${stateName}</span>
+              <span class="population">${numberWithCommas(
+                places.population
+              )}</span>
+              </li>`;
+          })
+          .join("");
+        suggestions.innerHTML = html;
+      }
+
+      inputSearch.addEventListener("change", displayMatches);
+      inputSearch.addEventListener("keyup", displayMatches);
+    </script>
   </body>
 </html>
